@@ -1,0 +1,26 @@
+## Query.nearbyEvent.req.vtl
+## Objects of type Event will be stored in the /event index
+
+#set( $indexPath = "/event/doc/_search" )
+
+{
+    "version": "2017-02-28",
+    "operation": "GET",
+    "path": "$indexPath.toLowerCase()",
+    "params": {
+        "body": {
+          "query": {
+                  "geo_shape": {
+                    "polygon": {
+                      "relation": "intersects",
+                      "shape": {
+                        "type": "${ctx.args.location.type}",
+                        "coordinates": $ctx.args.location.coordinates
+
+                      }
+                    }
+                  }
+            }
+      }
+    }
+}

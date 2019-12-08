@@ -1,0 +1,25 @@
+## Query.searchByDistance.req.vtl
+## Objects of type Runner will be stored in the /runner index
+
+#set( $indexPath = "/runner/doc/_search" )
+#set( $distance = $util.defaultIfNull($ctx.args.km, 200) )
+{
+    "version": "2017-02-28",
+    "operation": "GET",
+    "path": "$indexPath.toLowerCase()",
+    "params": {
+        "body": {
+            "query": {
+                "bool" : {
+                    "filter" : {
+                        "geo_distance" : {
+                            "distance" : "${distance}km",
+                            "coordinates" : $util.toJson($ctx.args.location)
+                        },
+
+                    }
+                }
+            }
+        }
+    }
+}

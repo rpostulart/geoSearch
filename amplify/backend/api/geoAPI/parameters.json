@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "geoAPI",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authgeosearch693aba57",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

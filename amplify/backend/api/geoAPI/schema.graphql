@@ -1,0 +1,49 @@
+type Event @model @searchable {
+  date: String!
+  description: String!
+  maxParticipants: Int!
+  polygon: Location!
+}
+
+type Runner @model @searchable {
+  name: String!
+  age: Int!
+  coordinates: Coordinates!
+}
+
+type Coordinates {
+  lat: Float!
+  lon: Float!
+}
+
+type Location {
+  type: String!
+  coordinates: [[[Float]]]!
+}
+
+type Query {
+  nearbyEvent(location: LocationEventInput!): EventConnection
+  searchByDistance(location: LocationRunnerInput!, km: Int): RunnerConnection
+}
+
+input LocationEventInput {
+  type: String!
+  coordinates: [Float]!
+}
+
+input LocationRunnerInput {
+  lat: Float!
+  lon: Float!
+}
+
+type EventConnection {
+  items: [Event]
+  total: Int
+  nextToken: String
+}
+
+type RunnerConnection {
+  items: [Runner]
+  total: Int
+  nextToken: String
+}
